@@ -5,93 +5,44 @@
  * @format
  */
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+import React, {useState} from 'react';
+import {SafeAreaView, StyleSheet, View} from 'react-native';
+import Home from './screens/home';
+import Login from './screens/login';
+import ChargerDetail from './screens/charger-detail';
+import Charging from './screens/charging';
 
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  const [activeScreen, setActiveScreen] = useState('login');
+  const [data, setData] = useState({});
+  console.log('🚀 ~ App ~ data:', data);
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+    <SafeAreaView>
+      {activeScreen === 'login' && (
+        <View style={styles.height}>
+          <Login setActiveScreen={setActiveScreen} />
         </View>
-      </ScrollView>
+      )}
+      {activeScreen === 'home' && (
+        <View>
+          <Home setData={setData} setActiveScreen={setActiveScreen} />
+        </View>
+      )}
+      {activeScreen === 'chargeDetail' && (
+        <View>
+          <ChargerDetail
+            data={data}
+            setData={setData}
+            setActiveScreen={setActiveScreen}
+          />
+        </View>
+      )}
+      {activeScreen === 'charging' && (
+        <View>
+          <Charging data={data} setActiveScreen={setActiveScreen} />
+        </View>
+      )}
     </SafeAreaView>
   );
 }
@@ -110,8 +61,30 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '400',
   },
+  HeaderView: {
+    width: '100%',
+    padding: '4%',
+    backgroundColor: '#5356FF',
+    alignItems: 'center',
+  },
+  HeaderText: {
+    color: '#DFF5FF',
+    fontWeight: '700',
+  },
   highlight: {
     fontWeight: '700',
+  },
+  flex: {
+    display: 'flex',
+    backgroundColor: '#67C6E3',
+  },
+  content: {
+    margin: '2%',
+    padding: '2%',
+  },
+  height: {
+    height: '100%',
+    justifyContent: 'space-around',
   },
 });
 

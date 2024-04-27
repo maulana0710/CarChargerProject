@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "title": "Tipe 1",
+    "description": "Fast charger 20kw",
+    "charge": 20,
+    "price": 5000,
+    "rating": 4.69,
+    "brand": "Apple",
+    "category": "chargers"
+  },
+  {
+    "id": 2,
+    "title": "Tipe 2",
+    "description": "More faster charger 50kw",
+    "charge": 50,
+    "price": 10000,
+    "rating": 4.8,
+    "brand": "Apple",
+    "category": "chargers"
+  }
+]
